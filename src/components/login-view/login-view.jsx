@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes, { shape } from "prop-types";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
@@ -12,13 +13,16 @@ export const LoginView = ({ onLoggedIn }) => {
       Username: username,
       Password: password,
     };
-    fetch("https://movies-flix-al-f68cdd84f041.herokuapp.com/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    fetch(
+      `https://movies-flix-al-f68cdd84f041.herokuapp.com/login?Username=${data.Username}&Password=${data.Password}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        // body: JSON.stringify(data),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log("Login response: ", data);
@@ -56,4 +60,8 @@ export const LoginView = ({ onLoggedIn }) => {
       <button type="submit">Submit</button>
     </form>
   );
+};
+
+LoginView.propTypes = {
+  onLoggedIn: PropTypes.func.isRequired,
 };
