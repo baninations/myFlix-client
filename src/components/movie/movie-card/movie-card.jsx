@@ -1,10 +1,11 @@
+import "./movie-card.scss";
 import PropTypes, { shape } from "prop-types";
 import { Card, Button } from "react-bootstrap";
 
 export const MovieCard = ({ movie, onMovieClicked }) => {
   return (
-    <Card className="h-100" onClick={() => onMovieClicked(movie)}>
-      <Card.Img variant="top" src={movie.ImagePath} />
+    <Card className="card h-100" onClick={() => onMovieClicked(movie)}>
+      <Card.Img className="imageSize" src={movie.ImagePath} />
       <Card.Body>
         <Card.Title>{movie.Title}</Card.Title>
         <Card.Text>{movie.Director.Name}</Card.Text>

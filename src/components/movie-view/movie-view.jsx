@@ -1,32 +1,54 @@
 import PropTypes, { shape } from "prop-types";
 import "./movie-view.scss";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Image from "react-bootstrap/Image";
+import { Row } from "react-bootstrap";
 
 export const MovieView = ({ movie, onBackClicked }) => {
   return (
-    <div>
-      <div>
-        <img src={movie.ImagePath} alt="Movie poster" />
-      </div>
-      <div>
-        <span>Title: </span>
-        <span>{movie.Title}</span>
-      </div>
-      <div>
-        <span>Description: </span>
-        <span>{movie.Description}</span>
-      </div>
-      <div>
-        <span>Genre: </span>
-        <span>{movie.Genre.Name}</span>
-      </div>
-      <div>
-        <span>Director: </span>
-        <span>{movie.Director.Name}</span>
-      </div>
-      <button className="back-button" onClick={onBackClicked}>
-        Back
-      </button>
-    </div>
+    <Container className="mt-4">
+      <Row className="justify-content-center">
+        <Col xs="12" md="6" lg="4" className="text-center">
+          <Image src={movie.ImagePath} thumbnail />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <p>
+            <strong>Title:</strong> {movie.Title}
+          </p>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <p>
+            <strong>Description:</strong> {movie.Description}
+          </p>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <p>
+            <strong>Genre:</strong> {movie.Genre.Name}
+          </p>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <p>
+            <strong>Director:</strong> {movie.Director.Name}
+          </p>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <button className="back-button" onClick={onBackClicked}>
+            Back
+          </button>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
