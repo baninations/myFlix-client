@@ -2,6 +2,7 @@ import "./movie-card.scss";
 import PropTypes, { shape } from "prop-types";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { MainView } from "../../main-view/main-view";
 
 export const MovieCard = ({
   movie,

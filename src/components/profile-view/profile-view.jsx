@@ -7,16 +7,17 @@ import { LoginView } from "../login-view/login-view";
 import { Row, Col, Container, Nav } from "react-bootstrap";
 import { FavMovie } from "./fav-movie";
 import { MovieCard } from "../movie/movie-card/movie-card";
+import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export const ProfileView = ({ user, onLoggedOut, movies }) => {
-  console.log("5555movies: ", movies);
+  //   console.log("5555movies: ", favouriteMovie);
   if (!user) {
     return <Navigate to="/login" />;
   } else {
     let favouriteMovie = movies.filter((m) =>
       user.FavoriteMovies.includes(m._id)
     );
-
     return (
       <>
         {
