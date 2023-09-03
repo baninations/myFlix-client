@@ -5,26 +5,6 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 export const FavMovie = ({ movies, user }) => {
-  //   const deleteFav = () => {
-  //     const storedToken = localStorage.getItem("token");
-  //     fetch(
-  //       `https://movies-flix-al-f68cdd84f041.herokuapp.com/users/${user.Username}/movies/${movie._id}`,
-  //       {
-  //         method: "DELETE",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${storedToken}`,
-  //         },
-  //       }
-  //     ).then((response) => {
-  //       if (response.ok) {
-  //         alert("movie deleted");
-  //       } else {
-  //         alert("Error deleting movie");
-  //       }
-  //     });
-  //   };
-
   return (
     <>
       <Card className="card h-100">

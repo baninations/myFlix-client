@@ -4,9 +4,11 @@ import { Form, Button } from "react-bootstrap";
 export const UpdateView = (user) => {
   let getUsername = user.user.Username;
   let getEmail = user.user.Email;
+  let getBirthday = user.user.Birthday;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [birthday, setBirthday] = useState("");
   let updatedUsername = getUsername;
   let updatedEmail = getEmail;
 
@@ -41,18 +43,24 @@ export const UpdateView = (user) => {
           return response.json().then((responseData) => {
             updatedUsername = responseData.Username; //mod
             updatedEmail = responseData.Email; //mod
+            updatedBirthday = responseData.Birthday;
           });
         } else {
           alert("Error updating data");
         }
       })
       .then(() => {
+        const date = new Date(updatedBirthday);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const year = String(date.getFullYear());
         setUsername(updatedUsername);
         setEmail(updatedEmail);
         alert(
           `Profile data successfully changed to:
              Username: ${updatedUsername}
              Email: ${updatedEmail}
+             Birthday: ${day}.${month}.${year}
              `
         );
         window.location.reload();
@@ -94,6 +102,17 @@ export const UpdateView = (user) => {
             placeholder={email + getEmail}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formBirthday">
+          <Form.Label>Birthday:</Form.Label>
+          <Form.Control
+            type="date"
+            placeholder={getBirthday} //added
+            value={birthday}
+            onChange={(e) => setBirthday(e.target.value)}
             required
           />
         </Form.Group>
