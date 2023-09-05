@@ -3,7 +3,7 @@ import { MovieCard } from "../movie/movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
-import { Row, Col, Container, Nav } from "react-bootstrap";
+import { Row, Col, Container, Nav, Form } from "react-bootstrap";
 import { BrowserRouter } from "react-router-dom";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
@@ -17,6 +17,13 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+  const filteredMovies = movies.filter((movie) => {
+    return movie.Title.toLowerCase().includes(searchQuery.toLowerCase());
+  });
 
   useEffect(() => {
     if (!token) return;
@@ -72,7 +79,9 @@ export const MainView = () => {
             element={
               <>
                 {user ? (
-                  <Navigate to="/" />
+                  <>
+                    <Navigate to="/" />
+                  </>
                 ) : (
                   <Col md={5}>
                     <LoginView onLoggedIn={(user) => setUser(user)} />
@@ -81,6 +90,7 @@ export const MainView = () => {
               </>
             }
           />
+
           <Route
             path="/movies/:movieId"
             element={
@@ -107,7 +117,15 @@ export const MainView = () => {
                   <Col>The list is empty</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
+                    <Form className="mb-3">
+                      <Form.Control
+                        type="text"
+                        placeholder="Search favorite movies"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                      />
+                    </Form>
+                    {filteredMovies.map((movie) => (
                       <Col
                         className="mb-4 container"
                         key={movie.id}
@@ -146,52 +164,3 @@ export const MainView = () => {
     </BrowserRouter>
   );
 };
-
-// (
-//   <Container>
-//     <NavigationBar user={user} />
-//     <Row className="justify-content-md-center mt-4">
-//       {!user ? (
-//         <Col md={5}>
-//           <LoginView
-//             onLoggedIn={(user, token) => {
-//               setUser(user);
-//               setToken(token);
-//             }}
-//           />
-//           or
-//           <SignupView />
-//         </Col>
-//       ) : selectedMovie ? (
-//         <Col md={8}>
-//           <MovieView
-//             movie={selectedMovie}
-//             onBackClicked={() => setSelectedMovie(null)}
-//           />
-//         </Col>
-//       ) : movies.length === 0 ? (
-//         <div>The list is empty.</div>
-//       ) : (
-//         <>
-//           {movies.map((movie) => (
-//             <Col
-//               className="mb-5 mt-4"
-//               key={movie.id}
-//               xs={12}
-//               sm={6}
-//               md={4}
-//               lg={3}
-//             >
-//               <MovieCard
-//                 movie={movie}
-//                 onMovieClicked={(newSelectedMovie) => {
-//                   setSelectedMovie(newSelectedMovie);
-//                 }}
-//               />
-//             </Col>
-//           ))}
-//         </>
-//       )}
-//     </Row>
-//   </Container>
-// );

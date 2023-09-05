@@ -1,4 +1,4 @@
-import { ButtonGroup, Container, Button } from "react-bootstrap";
+import { ButtonGroup, Container, Button, Form } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { UpdateView } from "./update-profile";
 import { useHistory } from "react-router-dom";
@@ -10,6 +10,7 @@ import { MovieCard } from "../movie/movie-card/movie-card";
 import { useState } from "react";
 
 export const ProfileView = ({ user, onLoggedOut, movies }) => {
+  const [searchQuery, setSearchQuery] = useState("");
   console.log("5555movies: ", movies);
   if (!user) {
     return <Navigate to="/login" />;
@@ -17,9 +18,22 @@ export const ProfileView = ({ user, onLoggedOut, movies }) => {
     let favouriteMovie = movies.filter((m) =>
       user.FavoriteMovies.includes(m._id)
     );
+    if (searchQuery) {
+      favouriteMovie = favouriteMovie.filter((movie) =>
+        movie.Title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
 
     return (
       <>
+        <Form className="mb-3">
+          <Form.Control
+            type="text"
+            placeholder="Search favorite movies"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </Form>
         {
           <>
             {favouriteMovie.map((movie) => (
