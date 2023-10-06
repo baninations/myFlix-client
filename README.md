@@ -1,8 +1,21 @@
 # myFlix React App
 
+## Live
+- https://my-flix-alban.netlify.app/
+
 ## Overview
 
 The myFlix React App is a single-page, responsive web application that allows movie enthusiasts to access information about different movies, create user profiles, and save their favorite movies. It serves as the client-side component for the myFlix movie application, working in conjunction with the server-side API.
+
+## Technologies used
+- Javascript
+- React JS
+- Parcel
+- State
+- React Forms
+- React Routing
+- React Bootstrap
+- Netlify
 
 ## Features
 
